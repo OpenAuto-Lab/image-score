@@ -18,15 +18,18 @@ def get_prompts_batched(batch, num_prompts=10):
     new_prompt_ids = []
 
     for img, label in zip(batch["image"], batch["label"]):
+        cur_img_prompts, cur_img_prompt_ids = [], []
         for i in range(num_prompts):
             label_class = class_index.get(label_names[label], None)
             if not label_class:
                 continue
             prompt = random.choice(templates).format(label_class.replace("_", " "))
-            new_images.append(img)
-            new_labels.append(label)
-            new_prompts.append(prompt)
-            new_prompt_ids.append(i)
+            cur_img_prompts.append(prompt)
+            cur_img_prompt_ids.append(i)
+        new_images.append(img)
+        new_labels.append(label)
+        new_prompts.append(cur_img_prompts)
+        new_prompt_ids.append(cur_img_prompt_ids)
     return {
         "image": new_images,
         "label": new_labels,
