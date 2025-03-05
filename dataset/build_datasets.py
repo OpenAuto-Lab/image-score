@@ -2,13 +2,13 @@ import random
 import json
 from datasets import load_dataset
 
-ds = load_dataset("ILSVRC/imagenet-1k", split="train")
-# ds = load_dataset("zh-plus/tiny-imagenet", split="train") # use tiny for test 
+# ds = load_dataset("ILSVRC/imagenet-1k", split="train")
+ds = load_dataset("zh-plus/tiny-imagenet", split="train") # use tiny for test 
 label_names = ds.features["label"].names
 
-with open("../data/imagenet_templates.json", "r") as f:
+with open("dataset/data/imagenet_templates.json", "r") as f:
     templates = json.load(f)
-with open("../data/imagenet_class_index_formatted.json", "r") as f:
+with open("dataset/data/imagenet_class_index_formatted.json", "r") as f:
     class_index = json.load(f)
 
 def get_prompts_batched(batch, num_prompts=10):
